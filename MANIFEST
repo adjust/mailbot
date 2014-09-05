@@ -1,0 +1,5 @@
+bin/main.pl
+Build.PL
+lib/Mailbot.pm
+LICENSE
+MANIFEST			This list of files
