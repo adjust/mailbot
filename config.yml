@@ -1,5 +1,5 @@
 ---
-user: imapuser
+user: imapuser@gmail.com
 pw: imap_passwort
 server: imap.gmail.com
 ssl: 1
