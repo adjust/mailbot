@@ -2,17 +2,21 @@
 
 use strict;
 use warnings;
-use 5.010;
+
 use lib 'lib';
 
 use Mailbot;
+use YAML qw/LoadFile/;
+
+my $config = LoadFile('config.yml');
 
 my $bot = Mailbot->new(
-    user   => 'testuser@adeven.com',
-    pw     => 'adeven1234#123',
-    server => 'imap.gmail.com',
-    ssl    => 1,
-    port   => 993,
+    user        => $config->{user},
+    pw          => $config->{pw},
+    server      => $config->{server},
+    ssl         => $config->{ssl},
+    port        => $config->{port},
+    allowedFrom => $config->{allowedSender},
 );
 
 $bot->process;

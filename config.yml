@@ -1,0 +1,7 @@
+---
+user: imapuser
+pw: imap_passwort
+server: imap.gmail.com
+ssl: 1
+port: 993
+allowedSender: support@adjust.com

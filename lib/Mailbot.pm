@@ -1,7 +1,5 @@
 package Mailbot;
 
-use strict;
-use warnings;
 use 5.010;
 
 use Moo;
@@ -12,16 +10,17 @@ use LWP::UserAgent;
 
 our $VERSION = '0.0.1';
 
-has user   => ( is => 'rw' );
-has pw     => ( is => 'rw' );
-has server => ( is => 'rw' );
-has ssl    => ( is => 'rw' );
-has port   => ( is => 'rw' );
-has imap   => ( is => 'rw' );
-has ua     => ( is => 'rw' );
-has parser => ( is => 'rw' );
-has finder => ( is => 'rw' );
-has url    => ( is => 'rw' );
+has user        => ( is => 'rw' );
+has pw          => ( is => 'rw' );
+has server      => ( is => 'rw' );
+has ssl         => ( is => 'rw' );
+has port        => ( is => 'rw' );
+has imap        => ( is => 'rw' );
+has ua          => ( is => 'rw' );
+has parser      => ( is => 'rw' );
+has finder      => ( is => 'rw' );
+has url         => ( is => 'rw' );
+has allowedFrom => ( is => 'rw' );
 
 sub BUILD {
     my $self = shift;
@@ -41,6 +40,11 @@ sub process {
         my $entity = $self->parser->parse_data(
             $self->imap->message_string($uid)
         );
+        my $header = $entity->head;
+        my $from   = $header->get_all("From");
+        if ( $from !~ /$self->{allowedFrom}/ ) {
+            next;
+        }
         my $content = $self->_split_entity($entity);
         $self->finder->find( \$content );
         my $response = $self->ua->get( $self->{url} );
