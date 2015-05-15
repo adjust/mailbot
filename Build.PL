@@ -24,6 +24,7 @@ my $builder = Module::Build->new(
         'multidimensional'      => 0,
         'bareword::filehandles' => 0,
         'YAML'                  => 0,
+        'LWP::Protocol::https'  => 0,
     },
     add_to_cleanup     => ['Build _build MYMETA.* log/*.log'],
     create_makefile_pl => 'traditional',
