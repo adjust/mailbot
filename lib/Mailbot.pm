@@ -87,7 +87,7 @@ sub _init_finder {
     my $finder = URI::Find->new(
         sub {
             my $uri = shift;
-            if ( $uri =~ /https/ ) {
+            if ( $uri =~ /https\S+csv$/ ) {
                 $self->url($uri);
             }
           }
